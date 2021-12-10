@@ -1,0 +1,137 @@
+//Android
+ext {
+    androidMinSdkVersion = 21
+    androidTargetSdkVersion = 30
+    androidCompileSdkVersion = 30
+    androidBuildToolsVersion = "29.0.3"
+}
+
+//Libraries
+ext {
+
+    androidGradlePluginVersion = '4.1.0'
+
+    coroutinesVer = '1.3.9'
+
+    // Android X
+    androidxVersion = '1.1.0'
+    constraintlayoutVersion = '2.0.0-beta4'
+    navVersion = '2.3.0'
+    coilVersion = '0.12.0'
+
+    // Support
+    supportLibraryVersion = '29.0.3'
+
+    // Dagger
+    daggerVersion = '2.24'
+
+    //Java
+    javaxAnnotationVersion = '1.0'
+    javaxInjectVersion = '1'
+
+    // Kotlin
+    kotlinVersion = '1.3.72'
+    ktxVersion = '1.3.0'
+    coroutinesVersion = '1.3.1'
+
+    //JodaTime
+    jodaTimeVersion = '2.9.9.4'
+
+    roomVersion = "2.3.0"
+}
+
+
+def dependencyGroup(Closure closure) {
+    closure.delegate = dependencies
+    return closure
+}
+
+//Global
+static def addRepos(RepositoryHandler handler) {
+    handler.google()
+    handler.jcenter()
+
+    handler.maven { url "https://jitpack.io" }
+}
+
+ext.addRepos = this.&addRepos
+ext.deps = [:]
+def deps = [:]
+
+deps.gradlePlugin = "com.android.tools.build:gradle:$androidGradlePluginVersion"
+deps.kotlinPlugin = "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
+deps.navigationPlugin = "androidx.navigation:navigation-safe-args-gradle-plugin:$navVersion"
+deps.daggerHilt = 'com.google.dagger:hilt-android-gradle-plugin:2.37'
+
+ext.deps = deps
+
+/******* Modules Dependencies *******/
+
+ext.presentationDependencies = dependencyGroup {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    implementation project(':domain')
+    implementation project(':data')
+
+    ui()
+    coroutines()
+    navigation()
+    dagger()
+    kotlinSdk()
+}
+
+ext.domainDependencies = dependencyGroup {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    kotlinSdk()
+    coroutines()
+    dagger()
+}
+
+ext.dataDependencies = dependencyGroup {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation project(':domain')
+
+    kotlinSdk()
+    coroutines()
+    dagger()
+    db()
+}
+
+ext.kotlinSdk = dependencyGroup {
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${kotlinVersion}"
+    implementation "androidx.core:core-ktx:${ktxVersion}"
+}
+
+ext.db = dependencyGroup {
+    implementation("androidx.room:room-runtime:$roomVersion")
+    kapt("androidx.room:room-compiler:$roomVersion")
+    implementation("androidx.room:room-ktx:$roomVersion")
+}
+
+ext.ui = dependencyGroup {
+    implementation "com.google.android.material:material:1.2.0-beta01"
+    implementation "androidx.constraintlayout:constraintlayout:2.0.0-beta4"
+    implementation "androidx.appcompat:appcompat:${androidxVersion}"
+    implementation "androidx.core:core-ktx:${ktxVersion}"
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0'
+    implementation "androidx.lifecycle:lifecycle-common-java8:2.2.0"
+    kapt "androidx.lifecycle:lifecycle-compiler:2.2.0"
+    implementation 'com.airbnb.android:lottie:3.4.4'
+}
+
+ext.coroutines = dependencyGroup {
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutinesVersion"
+}
+
+ext.dagger = dependencyGroup {
+    implementation 'com.google.dagger:hilt-android:2.37'
+    annotationProcessor 'com.google.dagger:hilt-compiler:2.37'
+    kapt 'com.google.dagger:hilt-compiler:2.37'
+}
+
+ext.navigation = dependencyGroup {
+    implementation "androidx.navigation:navigation-fragment-ktx:$navVersion"
+    implementation "androidx.navigation:navigation-ui-ktx:$navVersion"
+}

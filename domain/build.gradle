@@ -1,0 +1,46 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'dagger.hilt.android.plugin'
+apply from: "$project.rootDir/buildsystem/dependencies.gradle"
+
+android {
+    def globalConfig = rootProject.ext
+
+    compileSdkVersion 30
+    buildToolsVersion "30.0.1"
+
+    defaultConfig {
+        minSdkVersion globalConfig.androidMinSdkVersion
+        targetSdkVersion globalConfig.androidTargetSdkVersion
+        compileSdkVersion globalConfig.androidCompileSdkVersion
+    }
+
+    buildTypes {
+        all {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+
+            buildConfigField "String", "HOST", '"https://jsonplaceholder.typicode.com"'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+}
+
+kotlin {
+    androidExtensions {
+        experimental = true
+    }
+}
+
+dependencies {
+
+    domainDependencies()
+}
