@@ -2,7 +2,10 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:startDestination="@id/fragmentChat"
     android:id="@+id/nav_graph_main">
 
+    <fragment android:id="@+id/fragmentChat"
+        android:name="com.zalesskyi.muzchat.features.chat.ChatFragment"/>
 
 </navigation>

@@ -11,8 +11,6 @@ ext {
 
     androidGradlePluginVersion = '4.1.0'
 
-    coroutinesVer = '1.3.9'
-
     // Android X
     androidxVersion = '1.1.0'
     constraintlayoutVersion = '2.0.0-beta4'
@@ -30,9 +28,9 @@ ext {
     javaxInjectVersion = '1'
 
     // Kotlin
-    kotlinVersion = '1.3.72'
+    kotlinVersion = '1.5.21'
     ktxVersion = '1.3.0'
-    coroutinesVersion = '1.3.1'
+    coroutinesVersion = '1.3.9'
 
     //JodaTime
     jodaTimeVersion = '2.9.9.4'
@@ -61,7 +59,7 @@ def deps = [:]
 deps.gradlePlugin = "com.android.tools.build:gradle:$androidGradlePluginVersion"
 deps.kotlinPlugin = "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
 deps.navigationPlugin = "androidx.navigation:navigation-safe-args-gradle-plugin:$navVersion"
-deps.daggerHilt = 'com.google.dagger:hilt-android-gradle-plugin:2.37'
+deps.daggerHilt = 'com.google.dagger:hilt-android-gradle-plugin:2.40.5'
 
 ext.deps = deps
 
@@ -95,6 +93,7 @@ ext.dataDependencies = dependencyGroup {
     coroutines()
     dagger()
     db()
+    mlKitReply()
 }
 
 ext.kotlinSdk = dependencyGroup {
@@ -126,12 +125,15 @@ ext.coroutines = dependencyGroup {
 }
 
 ext.dagger = dependencyGroup {
-    implementation 'com.google.dagger:hilt-android:2.37'
-    annotationProcessor 'com.google.dagger:hilt-compiler:2.37'
-    kapt 'com.google.dagger:hilt-compiler:2.37'
+    implementation 'com.google.dagger:hilt-android:2.40.5'
+    kapt 'com.google.dagger:hilt-compiler:2.40.5'
 }
 
 ext.navigation = dependencyGroup {
     implementation "androidx.navigation:navigation-fragment-ktx:$navVersion"
     implementation "androidx.navigation:navigation-ui-ktx:$navVersion"
+}
+
+ext.mlKitReply = dependencyGroup {
+    implementation 'com.google.mlkit:smart-reply:16.1.1'
 }

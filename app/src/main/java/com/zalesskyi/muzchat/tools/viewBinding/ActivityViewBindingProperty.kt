@@ -1,4 +1,4 @@
-package com.zalesskyi.muzchat.tools.view_binding
+package com.zalesskyi.muzchat.tools.viewBinding
 
 import android.app.Activity
 import android.view.View
