@@ -3,8 +3,18 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="app/src/main/res/drawable/bg_another_message.xml" value="0.2101851851851852" />
+        <entry key="app/src/main/res/drawable/bg_another_message_tail.xml" value="0.2101851851851852" />
+        <entry key="app/src/main/res/drawable/bg_circle.xml" value="0.2101851851851852" />
+        <entry key="app/src/main/res/drawable/bg_header_message.xml" value="0.21574074074074073" />
+        <entry key="app/src/main/res/drawable/bg_my_message.xml" value="0.2101851851851852" />
+        <entry key="app/src/main/res/drawable/bg_my_message_tail.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/ic_baseline_send_24.xml" value="0.2101851851851852" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.1644021739130435" />
         <entry key="app/src/main/res/layout/fragment_chat.xml" value="0.1480978260869565" />
+        <entry key="app/src/main/res/layout/item_another_message.xml" value="0.15670289855072464" />
+        <entry key="app/src/main/res/layout/item_header_message.xml" value="0.15217391304347827" />
+        <entry key="app/src/main/res/layout/item_my_message.xml" value="0.165" />
       </map>
     </option>
   </component>

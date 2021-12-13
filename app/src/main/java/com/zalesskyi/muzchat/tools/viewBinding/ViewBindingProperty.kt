@@ -2,6 +2,7 @@ package com.zalesskyi.muzchat.tools.viewBinding
 
 import android.os.Handler
 import android.os.Looper
+import androidx.annotation.CallSuper
 import androidx.annotation.MainThread
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.Lifecycle
@@ -53,5 +54,34 @@ abstract class LifecycleViewBindingProperty<in R : Any, T : ViewBinding>(
     private companion object {
 
         private val mainHandler = Handler(Looper.getMainLooper())
+    }
+}
+
+open class LazyViewBindingProperty<in R : Any, T : ViewBinding>(
+    private val onViewDestroyed: (T) -> Unit,
+    protected val viewBinder: (R) -> T,
+) : ViewBindingProperty<R, T> {
+
+    constructor(viewBinder: (R) -> T) : this({}, viewBinder)
+
+    protected var viewBinding: Any? = null
+
+    @Suppress("UNCHECKED_CAST")
+    @MainThread
+    override fun getValue(thisRef: R, property: KProperty<*>): T {
+        return viewBinding as? T ?: viewBinder(thisRef).also { viewBinding ->
+            this.viewBinding = viewBinding
+        }
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    @MainThread
+    @CallSuper
+    override fun clear() {
+        val viewBinding = this.viewBinding as T?
+        if (viewBinding != null) {
+            onViewDestroyed(viewBinding)
+        }
+        this.viewBinding = null
     }
 }

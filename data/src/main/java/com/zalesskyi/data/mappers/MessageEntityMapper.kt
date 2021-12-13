@@ -1,10 +1,10 @@
 package com.zalesskyi.data.mappers
 
 import com.zalesskyi.data.storage.models.MessageEntity
-import com.zalesskyi.domain.models.Message
+import com.zalesskyi.domain.models.MessageModel
 
 fun MessageEntity.toDomain() =
-    Message(id, createdAt, body, senderId)
+    MessageModel(id, createdAt, body, senderId)
 
-fun Message.toData() =
+fun MessageModel.toData() =
     MessageEntity(id, createdAt, body, senderId)

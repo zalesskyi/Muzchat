@@ -33,7 +33,7 @@ ext {
     coroutinesVersion = '1.3.9'
 
     //JodaTime
-    jodaTimeVersion = '2.9.9.4'
+    jodaTimeVersion = '2.10.13'
 
     roomVersion = "2.3.0"
 }
@@ -76,6 +76,7 @@ ext.presentationDependencies = dependencyGroup {
     navigation()
     dagger()
     kotlinSdk()
+    jodaTime()
 }
 
 ext.domainDependencies = dependencyGroup {
@@ -83,6 +84,7 @@ ext.domainDependencies = dependencyGroup {
     kotlinSdk()
     coroutines()
     dagger()
+    jodaTime()
 }
 
 ext.dataDependencies = dependencyGroup {
@@ -94,6 +96,7 @@ ext.dataDependencies = dependencyGroup {
     dagger()
     db()
     mlKitReply()
+    jodaTime()
 }
 
 ext.kotlinSdk = dependencyGroup {
@@ -136,4 +139,8 @@ ext.navigation = dependencyGroup {
 
 ext.mlKitReply = dependencyGroup {
     implementation 'com.google.mlkit:smart-reply:16.1.1'
+}
+
+ext.jodaTime = dependencyGroup {
+    implementation "joda-time:joda-time:$jodaTimeVersion"
 }

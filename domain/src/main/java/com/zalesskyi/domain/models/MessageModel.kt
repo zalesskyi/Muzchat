@@ -1,11 +1,13 @@
 package com.zalesskyi.domain.models
 
-data class Message(
+import org.joda.time.DateTime
+
+data class MessageModel(
 
     /**
      * Unique id of message.
      */
-    val id: Long,
+    override val id: Long,
 
     /**
      * Timestamp of message creation.
@@ -23,4 +25,8 @@ data class Message(
      * @see ANOTHER_USER_ID
      */
     val senderId: Int
-)
+): Displayable {
+
+    override val creationTime: DateTime
+        get() = DateTime(createdAt)
+}

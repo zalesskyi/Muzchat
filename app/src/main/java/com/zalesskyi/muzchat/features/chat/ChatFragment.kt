@@ -7,9 +7,13 @@ import com.zalesskyi.domain.models.errors.InvalidMessageException
 import com.zalesskyi.muzchat.R
 import com.zalesskyi.muzchat.base.BaseFragment
 import com.zalesskyi.muzchat.databinding.FragmentChatBinding
+import com.zalesskyi.muzchat.extensions.clear
+import com.zalesskyi.muzchat.extensions.hideKeyboard
 import com.zalesskyi.muzchat.extensions.toast
+import com.zalesskyi.muzchat.features.chat.adapter.ChatAdapter
 import com.zalesskyi.muzchat.tools.viewBinding.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.android.synthetic.main.fragment_chat.*
 
 @AndroidEntryPoint
 class ChatFragment : BaseFragment<ChatContract.State, ChatContract.Event, ChatContract.Effect, ChatViewModel>(R.layout.fragment_chat) {
@@ -18,8 +22,11 @@ class ChatFragment : BaseFragment<ChatContract.State, ChatContract.Event, ChatCo
 
     private val binding by viewBinding(FragmentChatBinding::bind)
 
+    private val adapter = ChatAdapter(listOf())
+
     override fun observeState(state: ChatContract.State) {
-        binding.tvMessages.text = state.messages.joinToString("\n")
+        adapter.update(state.messages)
+        rvChat.scrollToPosition(state.messages.lastIndex)
     }
 
     override fun observeEffect(effect: ChatContract.Effect?) {
@@ -30,8 +37,13 @@ class ChatFragment : BaseFragment<ChatContract.State, ChatContract.Event, ChatCo
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.rvChat.adapter = adapter
         binding.bSend.setOnClickListener {
-            viewModel.sendEvent(ChatContract.Event.SendPressed(binding.etMessage.text.toString()))
+            hideKeyboard()
+            viewModel.sendEvent(
+                ChatContract.Event.SendPressed(binding.etMessage.text.toString())
+            )
+            binding.etMessage.clear()
         }
     }
 
