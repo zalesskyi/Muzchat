@@ -48,7 +48,7 @@ abstract class AppDatabase : RoomDatabase() {
                 MessageEntity(generateMessageId(), 1639099124467, "Good idea", 0),
                 MessageEntity(generateMessageId(), 1639099125467, "What do you fancy?", 1),
                 MessageEntity(generateMessageId(), 1639099126467, "Well", 0),
-                MessageEntity(generateMessageId(), 1639139127467, "Just coffee, or do you want to eat?", 0),
+                MessageEntity(generateMessageId(), 1639099128467, "Just coffee, or do you want to eat?", 0),
                 MessageEntity(generateMessageId(), 1639139128467, "Hmm, coffee is enough I think", 1)
             )
     }
