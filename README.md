@@ -8,7 +8,6 @@ Sample chat
 - Built with MVI arch using States, Events, Effects
 - Hilt - Dependency injection
 - Coroutines - async work/threading
-- Retrofit - networking
 - Google AAC: Room - database
 - Google ML Kit: Smart reply in chat
 
